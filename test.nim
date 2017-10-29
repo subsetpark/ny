@@ -1,3 +1,4 @@
+import algorithm
 import unittest
 import ny
 
@@ -12,3 +13,8 @@ forAll "division test":
   given(y, some[int]())
 do:
   check (x * y) / y == x.float
+
+forAll "reverse is reversible":
+  given(xs, some[seq[int]]())
+do:
+  check xs == xs.reversed(system.cmp).reversed(system.cmp)
