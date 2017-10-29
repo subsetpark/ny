@@ -6,6 +6,7 @@ type MutationState = enum
 type Example*[T] = ref object
   next*: iterator(): T
   state: MutationState
+  currentVal*: T
 
 proc reverse*(ex: var Example) =
   case ex.state
@@ -41,6 +42,7 @@ proc some*[T](): Example[T] =
         count = 0
 
       count += 1
+      example.currentVal = v
       yield v
 
   example.state = msInit
