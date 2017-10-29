@@ -1,11 +1,14 @@
 import math
 import unittest
+import strutils
+import random
 
 from examples import Example, some
 
 const maxExamples = 200
 
 template forAll*(testName: string, declarations: untyped, body: untyped) =
+  randomize()
   test testName:
     var
       reloadProcs {.inject.} = newSeq[proc()]()
@@ -17,7 +20,7 @@ template forAll*(testName: string, declarations: untyped, body: untyped) =
       try:
         body
       except:
-        echo "falsified example."
+        echo "\nfalsified example for $1." % testName
         for currentValProc in currentValProcs:
           currentValProc()
         raise
